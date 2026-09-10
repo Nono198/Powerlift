@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="theme-color" content="#0b1220" />
+<title>PowerLift</title>
+<style>
+:root{--bg:#08111f;--panel:#111827;--panel2:#182235;--line:#29374c;--text:#f8fafc;--muted:#94a3b8;--green:#22c55e;--blue:#38bdf8;--amber:#f59e0b;--red:#ef4444;--violet:#a78bfa}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}body{margin:0;background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Inter,sans-serif}.app{max-width:760px;margin:auto;min-height:100vh;padding:env(safe-area-inset-top) 14px calc(94px + env(safe-area-inset-bottom))}header{padding:15px 2px 8px;display:flex;justify-content:space-between;align-items:center}h1{margin:0;font-size:24px}.sub,.muted{color:var(--muted)}.small{font-size:12px}.card{background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:16px;margin:10px 0;box-shadow:0 8px 24px rgba(0,0,0,.15)}.hero{background:linear-gradient(135deg,#10233f,#102b22)}.section-title{font-size:12px;text-transform:uppercase;letter-spacing:.09em;color:var(--muted);margin:18px 3px 7px}.row{display:flex;align-items:center;gap:10px}.between{justify-content:space-between}.grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px}.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.btn{width:100%;border:0;border-radius:14px;padding:14px 12px;font-size:16px;font-weight:750;background:var(--panel2);color:var(--text)}.btn.primary{background:var(--green);color:#052e15}.btn.secondary{background:#0f172a;border:1px solid var(--line)}.btn.danger{background:var(--red)}.btn.compact{padding:10px;font-size:14px}.pill,.tag{display:inline-flex;align-items:center;border:1px solid var(--line);background:#0f172a;color:var(--muted);border-radius:999px;padding:7px 10px;font-size:12px}.big{font-size:34px;font-weight:850}.exercise{font-size:28px;font-weight:850;margin:7px 0}.session-grid{display:grid;grid-template-columns:1fr;gap:10px}.session-card{border:1px solid var(--line);background:#0f172a;border-radius:16px;padding:15px;text-align:left;color:var(--text)}.session-card.recommended{border-color:#1f9d55;box-shadow:0 0 0 1px #1f9d55 inset}.session-title{font-size:20px;font-weight:800}.session-desc{font-size:13px;color:var(--muted);margin:3px 0 10px}.session-meta{display:flex;flex-wrap:wrap;gap:6px}.progressbar{height:10px;background:#0f172a;border:1px solid var(--line);border-radius:99px;overflow:hidden}.progressbar>div{height:100%;background:var(--green)}.sets{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:12px 0}.setbtn{border:1px solid var(--line);background:#0f172a;color:var(--text);border-radius:14px;padding:15px 4px;text-align:center;font-weight:800}.setbtn.done{background:#064e3b;border-color:#10b981}.setbtn span{display:block;font-size:11px;color:var(--muted);margin-top:3px;font-weight:500}input,select{width:100%;padding:13px 12px;border-radius:12px;background:#0f172a;border:1px solid var(--line);color:var(--text);font-size:16px}label{font-size:12px;color:var(--muted);display:block;margin-bottom:6px}.timer{font-variant-numeric:tabular-nums;font-size:42px;text-align:center;font-weight:900;margin:7px 0}.hidden{display:none!important}.history-item{padding:13px 0;border-bottom:1px solid #223047}.history-item:last-child{border-bottom:0}.history-head{display:flex;justify-content:space-between;gap:8px;align-items:center}.history-actions{display:flex;gap:7px;margin-top:10px}.history-actions .btn{padding:9px;font-size:13px}.stage{position:relative;padding-left:20px}.stage:before{content:"";position:absolute;left:5px;top:5px;bottom:-12px;width:2px;background:#27364c}.stage:last-child:before{bottom:14px}.stage-dot{position:absolute;left:0;top:5px;width:12px;height:12px;border-radius:50%;background:#475569;border:2px solid var(--panel)}.stage.done .stage-dot{background:var(--green)}.stage.current .stage-dot{background:var(--blue)}.stage-label{font-weight:800}.stage-values{font-size:13px;color:var(--muted);margin:4px 0 16px}.chart-wrap{height:250px;position:relative}.chart-wrap svg{width:100%;height:100%;overflow:visible}.legend{display:flex;gap:12px;flex-wrap:wrap;font-size:12px;color:var(--muted);margin-top:8px}.legend span:before{content:"●";margin-right:5px}.legend .b:before{color:var(--blue)}.legend .s:before{color:var(--green)}.legend .d:before{color:var(--violet)}.stat{padding:10px;border-radius:12px;background:#0f172a;border:1px solid var(--line)}.toast{position:fixed;left:50%;transform:translateX(-50%);bottom:102px;background:#020617;border:1px solid var(--line);padding:10px 14px;border-radius:999px;z-index:60;display:none;white-space:nowrap}.modal{position:fixed;inset:0;background:rgba(2,6,23,.82);z-index:50;padding:20px 14px;overflow:auto}.modal-box{max-width:700px;margin:30px auto;background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:16px}.edit-ex{padding:12px 0;border-top:1px solid #223047}nav{position:fixed;left:0;right:0;bottom:0;background:rgba(15,23,42,.96);backdrop-filter:blur(12px);border-top:1px solid var(--line);padding:8px 10px calc(8px + env(safe-area-inset-bottom));z-index:20}.navin{max-width:760px;margin:auto;display:grid;grid-template-columns:repeat(4,1fr);gap:6px}.navbtn{border:0;background:transparent;color:var(--muted);padding:8px 3px;border-radius:10px;font-size:11px}.navbtn.active{color:#fff;background:#1e293b}.navbtn b{display:block;font-size:20px;margin-bottom:2px}@media(min-width:600px){.session-grid{grid-template-columns:repeat(3,1fr)}}
+</style>
+
+<style>
+.force-test-card{border:2px solid rgba(255,255,255,.12);border-radius:18px;padding:16px;margin:14px 0;background:linear-gradient(180deg,rgba(255,255,255,.05),rgba(255,255,255,.02))}
+.force-test-card.ready{border-color:#5dd39e;box-shadow:0 0 0 1px rgba(93,211,158,.15) inset}
+.force-test-card.locked{opacity:.6}
+.force-test-badge{display:inline-block;padding:5px 9px;border-radius:999px;font-size:12px;font-weight:700;margin-bottom:8px}
+.force-test-badge.ready{background:rgba(93,211,158,.16);color:#8ff0bf}
+.force-test-badge.locked{background:rgba(255,255,255,.08);color:#bbb}
+.force-attempts{display:grid;grid-template-columns:1fr;gap:10px;margin-top:10px}
+.force-attempt{display:grid;grid-template-columns:1fr auto auto;gap:8px;align-items:center}
+.force-attempt input{width:82px}
+.force-test-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
+</style>
+
+</head>
+<body>
+<div class="app">
+<header><div><h1>PowerLift</h1><div class="sub">Ta progression, séance après séance</div></div><div class="pill" id="weightPill">68 kg</div></header>
+
+<section id="homeView">
+  <div class="card hero"><div class="muted small">PROCHAINE RECOMMANDÉE</div><div class="exercise" id="recommendedName">Séance A</div><div class="muted" id="recommendedDesc"></div></div>
+  <div class="section-title">Choisir ma séance</div>
+  <div class="session-grid" id="sessionChooser"></div>
+  <div class="section-title">Ton prochain palier</div><div class="card" id="nextStageCard"></div>
+  <div class="section-title">Dernière séance</div><div class="card" id="lastSessionCard"></div>
+</section>
+
+<section id="workoutView" class="hidden">
+  <div class="card"><div class="row between"><div><span class="tag" id="sessionTag"></span><div class="exercise" id="exerciseName"></div><div class="muted" id="exerciseScheme"></div></div><div class="pill" id="exerciseCount"></div></div>
+  <div style="height:12px"></div><div class="grid2"><div><label>Charge aujourd'hui</label><input id="workWeight" type="number" step="0.25" inputmode="decimal"></div><div><label>Charge précédente</label><input id="previousWeight" disabled></div></div>
+  <div class="sets" id="setsContainer"></div>
+  <div class="grid2"><div><label>RPE dernière série</label><select id="rpeSelect"><option value="">—</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option></select></div><div><label>Reps meilleure série</label><input id="bestReps" type="number" inputmode="numeric"></div></div>
+  <div style="height:10px"></div><button class="btn primary" onclick="completeExercise()">Valider l'exercice</button></div>
+  <div class="card"><div class="muted" style="text-align:center">Repos</div><div class="timer" id="timerDisplay">03:00</div><div class="grid3"><button class="btn secondary" onclick="timerAdjust(-30)">-30 s</button><button class="btn secondary" onclick="toggleTimer()" id="timerBtn">Démarrer</button><button class="btn secondary" onclick="timerAdjust(30)">+30 s</button></div></div>
+  <div class="card"><b>Charge suivante calculée automatiquement</b><div class="muted small" id="progressionHint" style="margin-top:5px"></div></div>
+</section>
+
+<section id="progressView" class="hidden">
+  <div class="section-title">Parcours d'objectifs</div><div class="card" id="stagesCard"></div>
+  <div class="section-title">Graphique de progression</div><div class="card"><div class="chart-wrap" id="progressChart"></div><div class="legend"><span class="b">Bench</span><span class="s">Squat</span><span class="d">Deadlift</span></div></div>
+  <div class="section-title">1RM estimés actuels</div><div class="grid3" id="prCards"></div>
+  <div class="section-title">Historique modifiable</div><div class="card" id="historyList"></div>
+</section>
+
+<section id="programView" class="hidden"><div class="section-title">Programme et prochaines charges</div><div id="programCards"></div></section>
+
+<section id="settingsView" class="hidden">
+  <div class="card"><div class="section-title" style="margin-top:0">Profil</div><label>Poids de corps (kg)</label><input id="bodyWeightInput" type="number" step="0.1"><div style="height:10px"></div><button class="btn primary" onclick="saveSettings()">Enregistrer</button></div>
+  <div class="card"><div class="section-title" style="margin-top:0">Données</div><button class="btn secondary" onclick="exportData()">Exporter une sauvegarde</button><div style="height:8px"></div><label>Importer une sauvegarde JSON</label><input type="file" id="importFile" accept="application/json" onchange="importData(event)"><div style="height:8px"></div><button class="btn danger" onclick="resetData()">Réinitialiser l'application</button></div>
+  <div class="card"><b>À propos des objectifs</b><p class="muted small">Les paliers sont basés sur ton poids actuel et ton niveau de départ. 120/160/180 est ton objectif ultime actuel. Les paliers intermédiaires permettent de progresser étape par étape et pourront être réévalués selon tes performances.</p></div>
+</section>
+</div>
+
+<nav><div class="navin"><button class="navbtn active" onclick="showView('home',this)"><b>⌂</b>Accueil</button><button class="navbtn" onclick="showView('progress',this)"><b>↗</b>Progression</button><button class="navbtn" onclick="showView('program',this)"><b>≡</b>Programme</button><button class="navbtn" onclick="showView('settings',this)"><b>⚙︎</b>Réglages</button></div></nav>
+<div class="toast" id="toast"></div>
+<div class="modal hidden" id="editModal"><div class="modal-box"><div class="row between"><h3 style="margin:0">Modifier la séance</h3><button class="btn secondary compact" style="width:auto" onclick="closeEdit()">Fermer</button></div><div id="editContent"></div><div style="height:10px"></div><button class="btn primary" onclick="saveEditedSession()">Enregistrer les modifications</button></div></div>
+
+<script>
+const sessions={
+A:{name:'Séance A',desc:'Squat + Bench',ex:[['Squat',4,5,180],['Développé couché',4,5,180],['Soulevé de terre roumain',3,8,120],['Rowing',3,10,90]]},
+B:{name:'Séance B',desc:'Deadlift + Technique',ex:[['Soulevé de terre',3,5,210],['Bench pause 1 sec',4,5,150],['Squat pause',3,5,150],['Tirage vertical',3,10,90]]},
+C:{name:'Séance C',desc:'Force',ex:[['Squat lourd',1,3,240],['Squat léger',3,5,180],['Bench lourd',1,3,240],['Bench léger',3,5,180],['Deadlift lourd',1,3,240],['Deadlift léger',2,5,180]]}
+};
+const goalStages=[
+{name:'Palier 1 — Total 300',bench:95,squat:100,deadlift:105,total:300},
+{name:'Palier 2 — Total 350',bench:100,squat:120,deadlift:130,total:350},
+{name:'Palier 3 — Total 400',bench:110,squat:140,deadlift:150,total:400},
+{name:'Palier 4 — Total 435',bench:115,squat:150,deadlift:170,total:435},
+{name:'Objectif ultime — Total 460',bench:120,squat:160,deadlift:180,total:460}
+];
+const defaultState={version:2,bodyWeight:68,nextSession:'A',history:[],prs:{bench:88.7,squat:88.7,deadlift:88.7},loads:{
+'A':{'Squat':62.5,'Développé couché':62.5,'Soulevé de terre roumain':50,'Rowing':0},
+'B':{'Soulevé de terre':65,'Bench pause 1 sec':57.5,'Squat pause':55,'Tirage vertical':0},
+'C':{'Squat lourd':70,'Squat léger':60,'Bench lourd':70,'Bench léger':60,'Deadlift lourd':70,'Deadlift léger':60}}};
+let state=loadState(),currentSession=null,currentEx=0,setDone=[],timerSec=180,timerInt=null,sessionLog=[],editingIndex=null;
+function loadState(){let raw=JSON.parse(localStorage.getItem('powerliftState')||'null');if(!raw)return structuredClone(defaultState);raw.version=2;raw.bodyWeight=raw.bodyWeight||68;raw.nextSession=raw.nextSession||'A';raw.history=Array.isArray(raw.history)?raw.history:[];raw.prs=raw.prs||structuredClone(defaultState.prs);raw.loads=raw.loads||structuredClone(defaultState.loads);for(const k of ['A','B','C']){raw.loads[k]=raw.loads[k]||{};for(const ex of sessions[k].ex)if(raw.loads[k][ex[0]]===undefined)raw.loads[k][ex[0]]=defaultState.loads[k][ex[0]]||0}return raw}
+function save(){localStorage.setItem('powerliftState',JSON.stringify(state));renderAll()}
+function toast(t){const e=document.getElementById('toast');e.textContent=t;e.style.display='block';setTimeout(()=>e.style.display='none',1800)}
+function showView(v,btn){['home','workout','progress','program','settings'].forEach(x=>document.getElementById(x+'View').classList.add('hidden'));document.getElementById(v+'View').classList.remove('hidden');document.querySelectorAll('.navbtn').forEach(b=>b.classList.remove('active'));if(btn)btn.classList.add('active');if(v==='settings')document.getElementById('bodyWeightInput').value=state.bodyWeight;if(v==='progress')renderProgress()}
+function fmt(n){return Number(n).toLocaleString('fr-FR',{maximumFractionDigits:1})}
+function formatTime(s){return String(Math.floor(s/60)).padStart(2,'0')+':'+String(s%60).padStart(2,'0')}
+function classify(name){let n=name.toLowerCase();if(n.includes('bench')||n.includes('développé couché'))return'bench';if(n.includes('squat'))return'squat';if(n.includes('deadlift')||n.includes('soulevé de terre')&&!n.includes('roumain'))return'deadlift';return null}
+function currentStageIndex(){return goalStages.findIndex(g=>state.prs.bench<g.bench||state.prs.squat<g.squat||state.prs.deadlift<g.deadlift)}
+function renderHome(){document.getElementById('weightPill').textContent=fmt(state.bodyWeight)+' kg';let s=sessions[state.nextSession];document.getElementById('recommendedName').textContent=s.name;document.getElementById('recommendedDesc').textContent=s.desc;let chooser=document.getElementById('sessionChooser');chooser.innerHTML='';Object.entries(sessions).forEach(([k,x])=>{let main=x.ex.slice(0,2).map(e=>`${e[0]} ${state.loads[k][e[0]]||'—'} kg`).join(' · ');chooser.innerHTML+=`<button class="session-card ${k===state.nextSession?'recommended':''}" onclick="startSession('${k}')"><div class="row between"><div class="session-title">${x.name}</div>${k===state.nextSession?'<span class="tag">recommandée</span>':''}</div><div class="session-desc">${x.desc}</div><div class="session-meta"><span class="tag">${x.ex.length} exercices</span><span class="tag">${main}</span></div></button>`});let i=currentStageIndex(),g=i<0?goalStages.at(-1):goalStages[i];document.getElementById('nextStageCard').innerHTML=i<0?'<b>Défi ultime atteint 🎉</b>':`<div class="row between"><div><b>${g.name}</b><div class="muted small">Bench ${g.bench} · Squat ${g.squat} · Deadlift ${g.deadlift} kg</div></div><span class="tag">Total ${g.total}</span></div><div style="height:10px"></div>${stageProgressHtml(g)}`;let l=state.history.at(-1);document.getElementById('lastSessionCard').innerHTML=l?`<div class="row between"><b>${l.session}</b><span class="muted small">${new Date(l.date).toLocaleDateString('fr-FR')}</span></div><div class="muted small" style="margin-top:6px">${l.exercises.map(e=>`${e.name} ${fmt(e.weight)} kg`).join(' · ')}</div>`:'<div class="muted">Aucune séance enregistrée.</div>'}
+function stageProgressHtml(g){let cur=state.prs.bench+state.prs.squat+state.prs.deadlift,pct=Math.min(100,cur/g.total*100);return`<div class="row between small"><span class="muted">Total estimé ${fmt(cur)} kg</span><b>${Math.round(pct)}%</b></div><div style="height:6px"></div><div class="progressbar"><div style="width:${pct}%"></div></div>`}
+function startSession(k){currentSession=k;currentEx=0;sessionLog=[];showView('workout');loadExercise()}
+function lastLoadFor(name){for(let i=state.history.length-1;i>=0;i--){let e=state.history[i].exercises?.find(x=>x.name===name);if(e)return e.weight}return null}
+function loadExercise(){let [name,sets,reps,rest]=sessions[currentSession].ex[currentEx];document.getElementById('sessionTag').textContent=sessions[currentSession].name;document.getElementById('exerciseName').textContent=name;document.getElementById('exerciseScheme').textContent=`${sets} × ${reps} · repos ${formatTime(rest)}`;document.getElementById('exerciseCount').textContent=`${currentEx+1}/${sessions[currentSession].ex.length}`;document.getElementById('workWeight').value=state.loads[currentSession][name]||'';let prev=lastLoadFor(name);document.getElementById('previousWeight').value=prev?fmt(prev)+' kg':'—';document.getElementById('bestReps').value=reps;document.getElementById('rpeSelect').value='';setDone=Array(sets).fill(false);renderSets(reps);timerSec=rest;stopTimer();updateTimer();document.getElementById('progressionHint').textContent='La prochaine charge sera calculée à partir du RPE et de la réussite de tes séries.'}
+function renderSets(reps){let c=document.getElementById('setsContainer');c.innerHTML='';setDone.forEach((d,i)=>c.innerHTML+=`<button class="setbtn ${d?'done':''}" onclick="toggleSet(${i})">S${i+1}<span>${d?'✓':reps+' reps'}</span></button>`)}
+function toggleSet(i){setDone[i]=!setDone[i];renderSets(sessions[currentSession].ex[currentEx][2]);if(setDone[i]){timerSec=sessions[currentSession].ex[currentEx][3];startTimer()}}
+function roundLoad(v){return Math.round(v*4)/4}
+function nextLoad(name,w,rpe,allDone=true){rpe=+rpe;if(!w)return 0;if(!allDone||rpe>=10)return Math.max(0,roundLoad(w*0.95));if(rpe>=9)return w;let type=classify(name);let variant=name.toLowerCase().includes('pause')||name.toLowerCase().includes('léger')||name.toLowerCase().includes('roumain');if(variant){return rpe<=7?roundLoad(w+2.5):w}if(type==='deadlift')return roundLoad(w+(rpe<=7?5:2.5));if(type==='bench')return roundLoad(w+(rpe<=7?2.5:1.25));if(type==='squat')return roundLoad(w+(rpe<=6?5:2.5));return rpe<=7?roundLoad(w+2.5):w}
+function syncLightLoads(){let c=state.loads.C;if(c['Squat lourd'])c['Squat léger']=roundLoad(c['Squat lourd']*.825);if(c['Bench lourd'])c['Bench léger']=roundLoad(c['Bench lourd']*.825);if(c['Deadlift lourd'])c['Deadlift léger']=roundLoad(c['Deadlift lourd']*.825)}
+function completeExercise(){let ex=sessions[currentSession].ex[currentEx],name=ex[0],w=+document.getElementById('workWeight').value||0,rpe=+document.getElementById('rpeSelect').value||null,reps=+document.getElementById('bestReps').value||ex[2],allDone=setDone.every(Boolean);if(!allDone&&!confirm('Toutes les séries ne sont pas cochées. Valider quand même ?'))return;let next=nextLoad(name,w,rpe,allDone);state.loads[currentSession][name]=next;sessionLog.push({name,weight:w,rpe,reps,setsDone:setDone.filter(Boolean).length,setsPlanned:ex[1],est1rm:w?+(w*(1+reps/30)).toFixed(1):null,next});if(classify(name))updatePRsFromAll([...state.history,{exercises:sessionLog}]);syncLightLoads();if(currentEx<sessions[currentSession].ex.length-1){toast(`Prochaine fois : ${fmt(next)} kg`);currentEx++;loadExercise()}else finishSession()}
+function finishSession(){state.history.push({id:Date.now(),date:new Date().toISOString(),session:sessions[currentSession].name,key:currentSession,exercises:sessionLog});state.nextSession=currentSession==='A'?'B':currentSession==='B'?'C':'A';updatePRsFromAll(state.history);save();showView('home',document.querySelector('.navbtn'));toast('Séance enregistrée ✓')}
+function updatePRsFromAll(history){let prs={bench:88.7,squat:88.7,deadlift:88.7};for(const h of history){for(const e of(h.exercises||[])){let k=classify(e.name);if(!k||!e.weight||!e.reps)continue;let est=e.weight*(1+e.reps/30);prs[k]=Math.max(prs[k],est)}}state.prs=prs}
+function startTimer(){stopTimer();document.getElementById('timerBtn').textContent='Pause';timerInt=setInterval(()=>{timerSec=Math.max(0,timerSec-1);updateTimer();if(timerSec===0){stopTimer();navigator.vibrate&&navigator.vibrate([200,100,200]);toast('Repos terminé')}},1000)}
+function stopTimer(){if(timerInt){clearInterval(timerInt);timerInt=null}document.getElementById('timerBtn').textContent='Démarrer'}function toggleTimer(){timerInt?stopTimer():startTimer()}function timerAdjust(v){timerSec=Math.max(0,timerSec+v);updateTimer()}function updateTimer(){document.getElementById('timerDisplay').textContent=formatTime(timerSec)}
+function renderProgress(){let idx=currentStageIndex();document.getElementById('stagesCard').innerHTML=goalStages.map((g,i)=>`<div class="stage ${i<idx||idx<0?'done':i===idx?'current':''}"><span class="stage-dot"></span><div class="stage-label">${g.name}</div><div class="stage-values">Bench ${g.bench} · Squat ${g.squat} · Deadlift ${g.deadlift} kg — Total ${g.total} kg</div></div>`).join('');document.getElementById('prCards').innerHTML=[['Bench','bench'],['Squat','squat'],['Deadlift','deadlift']].map(([n,k])=>`<div class="stat"><div class="muted small">${n}</div><b>${fmt(state.prs[k])}</b><div class="muted small">kg</div></div>`).join('');renderChart();renderHistory()}
+function getProgressPoints(){let base={date:'Départ',bench:88.7,squat:88.7,deadlift:88.7},pts=[base],prs={bench:88.7,squat:88.7,deadlift:88.7};state.history.forEach((h,idx)=>{for(const e of(h.exercises||[])){let k=classify(e.name);if(k&&e.weight&&e.reps)prs[k]=Math.max(prs[k],e.weight*(1+e.reps/30))}pts.push({date:new Date(h.date).toLocaleDateString('fr-FR',{day:'2-digit',month:'2-digit'}),...prs})});return pts}
+function renderChart(){let pts=getProgressPoints(),box=document.getElementById('progressChart');if(pts.length<2){box.innerHTML='<div class="muted" style="padding:80px 0;text-align:center">Le graphique apparaîtra après ta première séance.</div>';return}let W=680,H=220,pad={l:38,r:12,t:14,b:30},vals=pts.flatMap(p=>[p.bench,p.squat,p.deadlift]),min=Math.floor((Math.min(...vals)-10)/10)*10,max=Math.ceil((Math.max(...vals)+10)/10)*10;if(max<=min)max=min+20;let x=i=>pad.l+i*(W-pad.l-pad.r)/Math.max(1,pts.length-1),y=v=>pad.t+(max-v)*(H-pad.t-pad.b)/(max-min);let grid='';for(let i=0;i<=4;i++){let v=min+(max-min)*i/4,yy=y(v);grid+=`<line x1="${pad.l}" x2="${W-pad.r}" y1="${yy}" y2="${yy}" stroke="#26364b"/><text x="2" y="${yy+4}" fill="#94a3b8" font-size="11">${Math.round(v)}</text>`}let path=k=>pts.map((p,i)=>`${i?'L':'M'} ${x(i)} ${y(p[k])}`).join(' ');let labels=pts.map((p,i)=>i===0||i===pts.length-1||i%Math.ceil(pts.length/5)===0?`<text x="${x(i)}" y="${H-5}" fill="#94a3b8" font-size="10" text-anchor="middle">${p.date}</text>`:'').join('');box.innerHTML=`<svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="none">${grid}<path d="${path('bench')}" fill="none" stroke="#38bdf8" stroke-width="3" vector-effect="non-scaling-stroke"/><path d="${path('squat')}" fill="none" stroke="#22c55e" stroke-width="3" vector-effect="non-scaling-stroke"/><path d="${path('deadlift')}" fill="none" stroke="#a78bfa" stroke-width="3" vector-effect="non-scaling-stroke"/>${labels}</svg>`}
+function renderHistory(){let h=document.getElementById('historyList'),arr=[...state.history].map((x,i)=>({x,i})).reverse();h.innerHTML=arr.length?arr.map(({x,i})=>`<div class="history-item"><div class="history-head"><div><b>${x.session}</b><div class="muted small">${new Date(x.date).toLocaleString('fr-FR',{dateStyle:'short',timeStyle:'short'})}</div></div><span class="tag">${x.exercises.length} ex.</span></div><div class="small muted" style="margin-top:7px">${x.exercises.map(e=>`${e.name}: ${fmt(e.weight)} kg × ${e.reps} @RPE ${e.rpe??'—'}`).join('<br>')}</div><div class="history-actions"><button class="btn secondary" onclick="editSession(${i})">Modifier</button><button class="btn secondary" onclick="deleteSession(${i})">Supprimer</button></div></div>`).join(''):'<div class="muted">Pas encore d\'historique.</div>'}
+function editSession(i){editingIndex=i;let s=state.history[i];document.getElementById('editContent').innerHTML=`<div style="height:12px"></div><label>Date et heure</label><input id="editDate" type="datetime-local" value="${toLocalInput(new Date(s.date))}"><div style="height:10px"></div>${s.exercises.map((e,j)=>`<div class="edit-ex"><b>${e.name}</b><div class="grid3" style="margin-top:8px"><div><label>Poids</label><input id="ew${j}" type="number" step="0.25" value="${e.weight}"></div><div><label>Reps</label><input id="er${j}" type="number" value="${e.reps}"></div><div><label>RPE</label><input id="ep${j}" type="number" min="1" max="10" value="${e.rpe??''}"></div></div></div>`).join('')}`;document.getElementById('editModal').classList.remove('hidden')}
+function toLocalInput(d){let z=n=>String(n).padStart(2,'0');return `${d.getFullYear()}-${z(d.getMonth()+1)}-${z(d.getDate())}T${z(d.getHours())}:${z(d.getMinutes())}`}
+function closeEdit(){document.getElementById('editModal').classList.add('hidden');editingIndex=null}
+function saveEditedSession(){let s=state.history[editingIndex];s.date=new Date(document.getElementById('editDate').value).toISOString();s.exercises.forEach((e,j)=>{e.weight=+document.getElementById('ew'+j).value||0;e.reps=+document.getElementById('er'+j).value||0;e.rpe=+document.getElementById('ep'+j).value||null;e.est1rm=e.weight&&e.reps?+(e.weight*(1+e.reps/30)).toFixed(1):null;e.next=nextLoad(e.name,e.weight,e.rpe,true)});recalculateFutureLoads();updatePRsFromAll(state.history);save();closeEdit();toast('Séance modifiée')}
+function deleteSession(i){if(!confirm('Supprimer cette séance ?'))return;state.history.splice(i,1);recalculateFutureLoads();updatePRsFromAll(state.history);save();toast('Séance supprimée')}
+function recalculateFutureLoads(){state.loads=structuredClone(defaultState.loads);for(const h of state.history){for(const e of(h.exercises||[])){if(h.key&&state.loads[h.key]&&state.loads[h.key][e.name]!==undefined)state.loads[h.key][e.name]=nextLoad(e.name,e.weight,e.rpe,(e.setsDone??e.setsPlanned)===(e.setsPlanned??e.setsDone));}}syncLightLoads()}
+function renderProgram(){let c=document.getElementById('programCards');c.innerHTML='';Object.entries(sessions).forEach(([k,s])=>{c.innerHTML+=`<div class="card"><div class="row between"><div><b>${s.name}</b><div class="muted small">${s.desc}</div></div><button class="btn primary compact" style="width:auto" onclick="startSession('${k}')">Démarrer</button></div><div style="height:8px"></div>${s.ex.map(e=>`<div class="row between" style="padding:10px 0;border-top:1px solid #223047"><div><b>${e[0]}</b><div class="muted small">${e[1]} × ${e[2]} · repos ${formatTime(e[3])}</div></div><div style="text-align:right"><div class="muted small">prochaine</div><b>${state.loads[k][e[0]]?fmt(state.loads[k][e[0]])+' kg':'à définir'}</b></div></div>`).join('')}</div>`})}
+function saveSettings(){state.bodyWeight=+document.getElementById('bodyWeightInput').value||68;save();toast('Profil enregistré')}
+function exportData(){let blob=new Blob([JSON.stringify(state,null,2)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='powerlift-backup.json';a.click();URL.revokeObjectURL(a.href)}
+function importData(ev){let f=ev.target.files[0];if(!f)return;let r=new FileReader();r.onload=()=>{try{state=JSON.parse(r.result);recalculateFutureLoads();updatePRsFromAll(state.history||[]);save();toast('Sauvegarde importée')}catch(e){alert('Fichier invalide')}};r.readAsText(f)}
+function resetData(){if(confirm('Effacer toutes les données et repartir de zéro ?')){state=structuredClone(defaultState);save();toast('Application réinitialisée')}}
+function renderAll(){renderHome();renderProgress();renderProgram()}
+renderAll();
+</script>
+
+<script>
+(function(){
+  const FORCE_TEST_KEY = 'powerlift_force_tests_v1';
+
+  function loadForceTests(){
+    try { return JSON.parse(localStorage.getItem(FORCE_TEST_KEY) || '[]'); }
+    catch(e){ return []; }
+  }
+  function saveForceTests(v){ localStorage.setItem(FORCE_TEST_KEY, JSON.stringify(v)); }
+
+  function getAppState(){
+    try{
+      if (typeof state !== 'undefined') return state;
+      const keys = Object.keys(localStorage);
+      for (const k of keys){
+        if (/powerlift/i.test(k)){
+          try{
+            const v = JSON.parse(localStorage.getItem(k));
+            if(v && typeof v === 'object' && (v.history || v.records || v.program)) return v;
+          }catch(e){}
+        }
+      }
+    }catch(e){}
+    return null;
+  }
+
+  const FORCE_LEVELS = [
+    {name:'Niveau 1', bench:95, squat:100, deadlift:105, total:300},
+    {name:'Niveau 2', bench:100, squat:120, deadlift:130, total:350},
+    {name:'Niveau 3', bench:110, squat:140, deadlift:150, total:400},
+    {name:'Niveau 4', bench:115, squat:150, deadlift:170, total:435},
+    {name:'Objectif ultime', bench:120, squat:160, deadlift:180, total:460}
+  ];
+
+  function extractEstimated1RM(){
+    const st = getAppState();
+    let out = {bench:88.7,squat:88.7,deadlift:88.7};
+
+    function normName(s){
+      s=(s||'').toLowerCase();
+      if(s.includes('bench') || s.includes('développé')) return 'bench';
+      if(s.includes('squat')) return 'squat';
+      if(s.includes('deadlift') || s.includes('soulevé')) return 'deadlift';
+      return null;
+    }
+
+    if(st){
+      const hist = st.history || st.sessions || [];
+      if(Array.isArray(hist)){
+        hist.forEach(sess=>{
+          const exs = sess.exercises || sess.items || [];
+          exs.forEach(ex=>{
+            const n = normName(ex.name || ex.exercise);
+            if(!n) return;
+            const w = Number(ex.weight || ex.load || ex.kg || 0);
+            const r = Number(ex.reps || ex.bestReps || ex.repetitions || 0);
+            if(w>0 && r>0){
+              const e1rm = w*(1+r/30);
+              out[n] = Math.max(out[n], e1rm);
+            }
+            const direct = Number(ex.estimated1RM || ex.e1rm || 0);
+            if(direct>0) out[n] = Math.max(out[n], direct);
+          });
+        });
+      }
+    }
+    return out;
+  }
+
+  function completedLevelIndex(){
+    const tests = loadForceTests();
+    let idx = -1;
+    FORCE_LEVELS.forEach((lvl,i)=>{
+      const success = tests.some(t=>t.levelIndex===i && t.benchSuccess && t.squatSuccess && t.deadliftSuccess);
+      if(success) idx=i;
+    });
+    return idx;
+  }
+
+  function isLevelReady(level){
+    const e = extractEstimated1RM();
+    return e.bench >= level.bench && e.squat >= level.squat && e.deadlift >= level.deadlift;
+  }
+
+  function renderForceTestHome(){
+    const host = document.querySelector('main') || document.querySelector('.container') || document.body;
+    if(document.getElementById('force-test-home')) return;
+
+    const done = completedLevelIndex();
+    const idx = Math.min(done+1, FORCE_LEVELS.length-1);
+    const lvl = FORCE_LEVELS[idx];
+    const ready = isLevelReady(lvl);
+
+    const wrap = document.createElement('section');
+    wrap.id='force-test-home';
+    wrap.className='force-test-card '+(ready?'ready':'locked');
+    wrap.innerHTML = `
+      <span class="force-test-badge ${ready?'ready':'locked'}">${ready?'TEST DISPONIBLE':'TEST VERROUILLÉ'}</span>
+      <h2 style="margin:4px 0 6px">Test de force — ${lvl.name}</h2>
+      <p style="margin:0 0 10px">Objectif réel : Bench <b>${lvl.bench} kg</b> · Squat <b>${lvl.squat} kg</b> · Deadlift <b>${lvl.deadlift} kg</b></p>
+      <p style="opacity:.8;margin:0 0 12px">${ready ? 'Ton 1RM estimé atteint ce palier. Tu peux lancer une séance spéciale pour valider réellement les charges.' : 'Le test se débloquera automatiquement lorsque tes 1RM estimés atteindront les trois charges du prochain palier.'}</p>
+      <button id="open-force-test" ${ready?'':'disabled'}>${ready?'Démarrer le test de force':'Continuer la progression'}</button>
+    `;
+    host.prepend(wrap);
+    wrap.querySelector('#open-force-test')?.addEventListener('click',()=>openForceTest(idx));
+  }
+
+  function openForceTest(levelIndex){
+    const lvl = FORCE_LEVELS[levelIndex];
+    const overlay = document.createElement('div');
+    overlay.id='force-test-overlay';
+    overlay.style.cssText='position:fixed;inset:0;background:#0f1115;z-index:9999;overflow:auto;padding:18px';
+    overlay.innerHTML = `
+      <div style="max-width:720px;margin:0 auto">
+        <button id="close-force-test" style="margin-bottom:14px">← Retour</button>
+        <h1>Test de force — ${lvl.name}</h1>
+        <p>Objectif : réussir <b>1 répétition propre</b> à chaque charge du palier.</p>
+        ${forceMovementBlock('bench','Développé couché',lvl.bench)}
+        ${forceMovementBlock('squat','Squat',lvl.squat)}
+        ${forceMovementBlock('deadlift','Soulevé de terre',lvl.deadlift)}
+        <div class="force-test-actions">
+          <button id="save-force-test">Enregistrer le test</button>
+        </div>
+      </div>`;
+    document.body.appendChild(overlay);
+    document.getElementById('close-force-test').onclick=()=>overlay.remove();
+    document.getElementById('save-force-test').onclick=()=>saveForceTestSession(levelIndex, overlay);
+  }
+
+  function forceMovementBlock(key,label,target){
+    const a1=Math.round((target*0.85)/2.5)*2.5;
+    const a2=Math.round((target*0.93)/2.5)*2.5;
+    return `
+      <div class="force-test-card">
+        <h3>${label}</h3>
+        <p style="opacity:.8">Montée conseillée : ${a1} kg × 1 → ${a2} kg × 1 → <b>${target} kg × 1</b></p>
+        <div class="force-attempts">
+          <div class="force-attempt">
+            <span>Essai final</span>
+            <input type="number" step="0.5" value="${target}" data-force-weight="${key}">
+            <select data-force-result="${key}">
+              <option value="success">Réussi</option>
+              <option value="fail">Raté</option>
+            </select>
+          </div>
+        </div>
+      </div>`;
+  }
+
+  function saveForceTestSession(levelIndex, overlay){
+    const lvl=FORCE_LEVELS[levelIndex];
+    const tests=loadForceTests();
+    const obj={
+      id:Date.now(),
+      date:new Date().toISOString(),
+      levelIndex,
+      levelName:lvl.name,
+      benchWeight:Number(overlay.querySelector('[data-force-weight="bench"]').value||lvl.bench),
+      squatWeight:Number(overlay.querySelector('[data-force-weight="squat"]').value||lvl.squat),
+      deadliftWeight:Number(overlay.querySelector('[data-force-weight="deadlift"]').value||lvl.deadlift),
+      benchSuccess:overlay.querySelector('[data-force-result="bench"]').value==='success',
+      squatSuccess:overlay.querySelector('[data-force-result="squat"]').value==='success',
+      deadliftSuccess:overlay.querySelector('[data-force-result="deadlift"]').value==='success'
+    };
+    tests.push(obj);
+    saveForceTests(tests);
+
+    alert(obj.benchSuccess && obj.squatSuccess && obj.deadliftSuccess
+      ? `Palier ${lvl.name} validé !`
+      : 'Test enregistré. Les mouvements ratés pourront être retestés lors d’un prochain test de force.');
+    overlay.remove();
+    location.reload();
+  }
+
+  if(document.readyState==='loading'){
+    document.addEventListener('DOMContentLoaded',()=>setTimeout(renderForceTestHome,120));
+  } else setTimeout(renderForceTestHome,120);
+})();
+</script>
+
+</body>
+</html>
