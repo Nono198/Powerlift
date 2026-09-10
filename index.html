@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="theme-color" content="#111827" />
+<link rel="manifest" href="manifest.webmanifest" />
+<link rel="apple-touch-icon" href="icon.svg" />
+<title>PowerLift 100/150/200</title>
+<style>
+:root{--bg:#0b1220;--panel:#111827;--panel2:#1f2937;--muted:#94a3b8;--text:#f8fafc;--accent:#22c55e;--warn:#f59e0b;--danger:#ef4444;--line:#334155;--blue:#38bdf8}
+*{box-sizing:border-box} body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Inter,sans-serif;background:var(--bg);color:var(--text)}
+.app{max-width:720px;margin:0 auto;min-height:100vh;padding:env(safe-area-inset-top) 14px calc(92px + env(safe-area-inset-bottom))}
+header{padding:14px 2px 10px;display:flex;justify-content:space-between;align-items:center} h1{font-size:22px;margin:0}.sub{font-size:13px;color:var(--muted)}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:16px;margin:10px 0;box-shadow:0 8px 28px rgba(0,0,0,.18)}
+.row{display:flex;gap:10px;align-items:center}.between{justify-content:space-between}.grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px}.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.btn{border:none;border-radius:14px;padding:14px 16px;font-weight:700;font-size:16px;background:var(--panel2);color:var(--text);width:100%}.btn.primary{background:var(--accent);color:#06210f}.btn.secondary{background:#0f172a;border:1px solid var(--line)}.btn.warn{background:var(--warn);color:#2b1600}.btn.danger{background:var(--danger)}
+.pill{display:inline-flex;align-items:center;gap:6px;background:#0f172a;border:1px solid var(--line);padding:7px 10px;border-radius:999px;color:var(--muted);font-size:13px}
+.big{font-size:34px;font-weight:800}.exercise{font-size:28px;font-weight:800;margin:6px 0}.muted{color:var(--muted)}
+.sets{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:12px 0}.setbtn{padding:16px 4px;border-radius:14px;background:#0f172a;border:1px solid var(--line);text-align:center;font-weight:800}.setbtn.done{background:#064e3b;border-color:#10b981}.setbtn span{display:block;font-size:12px;color:var(--muted);font-weight:500}
+input,select{width:100%;padding:13px 12px;border-radius:12px;background:#0f172a;border:1px solid var(--line);color:var(--text);font-size:16px} label{font-size:13px;color:var(--muted);display:block;margin-bottom:6px}
+nav{position:fixed;left:0;right:0;bottom:0;background:rgba(15,23,42,.96);backdrop-filter:blur(12px);border-top:1px solid var(--line);padding:8px 10px calc(8px + env(safe-area-inset-bottom));display:flex;justify-content:center;z-index:20} .navin{max-width:720px;width:100%;display:grid;grid-template-columns:repeat(4,1fr);gap:6px}.navbtn{background:transparent;border:none;color:var(--muted);padding:8px 4px;border-radius:10px;font-size:12px}.navbtn.active{color:#fff;background:#1e293b}.navbtn b{display:block;font-size:20px;margin-bottom:2px}
+.section-title{font-size:13px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin:16px 2px 6px}.progressbar{height:10px;background:#0f172a;border-radius:999px;overflow:hidden;border:1px solid var(--line)}.progressbar>div{height:100%;background:var(--accent)}
+.timer{font-variant-numeric:tabular-nums;font-size:42px;font-weight:900;text-align:center;margin:8px 0}.hidden{display:none}.small{font-size:12px}.history-item{padding:12px 0;border-bottom:1px solid #223047}.history-item:last-child{border-bottom:none}.tag{font-size:11px;padding:4px 7px;border-radius:999px;background:#172033;color:#cbd5e1}.hero{background:linear-gradient(135deg,#10233f,#102b22)}
+.toast{position:fixed;left:50%;transform:translateX(-50%);bottom:100px;background:#020617;border:1px solid var(--line);padding:10px 14px;border-radius:999px;z-index:50;display:none}
+</style>
+</head>
+<body>
+<div class="app">
+<header><div><h1>PowerLift</h1><div class="sub">Objectif 100 / 150 / 200</div></div><div class="pill" id="weightPill">68 kg</div></header>
+
+<section id="homeView">
+<div class="card hero"><div class="muted">Prochaine séance</div><div class="exercise" id="nextSessionName">Séance A</div><div class="sub" id="nextSessionDesc">Squat + Bench</div><div style="height:12px"></div><button class="btn primary" onclick="startSession()">Démarrer la séance</button></div>
+<div class="section-title">Progression</div>
+<div id="goals"></div>
+<div class="section-title">Dernière séance</div><div class="card" id="lastSessionCard"><div class="muted">Aucune séance enregistrée.</div></div>
+</section>
+
+<section id="workoutView" class="hidden">
+<div class="card"><div class="row between"><div><span class="tag" id="sessionTag">Séance A</span><div class="exercise" id="exerciseName">Squat</div><div class="muted" id="exerciseScheme">4 × 5 · repos 3 min</div></div><div class="pill" id="exerciseCount">1/4</div></div>
+<div style="height:10px"></div>
+<div class="grid2"><div><label>Charge aujourd’hui</label><input id="workWeight" type="number" step="0.5" inputmode="decimal"></div><div><label>RPE cible</label><input value="7-8" disabled></div></div>
+<div class="sets" id="setsContainer"></div>
+<div class="grid2"><div><label>RPE dernière série</label><select id="rpeSelect"><option value="">—</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option></select></div><div><label>Reps meilleure série</label><input id="bestReps" type="number" inputmode="numeric"></div></div>
+<div style="height:10px"></div><button class="btn primary" onclick="completeExercise()">Valider l’exercice</button></div>
+<div class="card"><div class="muted" style="text-align:center">Repos</div><div class="timer" id="timerDisplay">03:00</div><div class="grid3"><button class="btn secondary" onclick="timerAdjust(-30)">-30s</button><button class="btn secondary" onclick="toggleTimer()" id="timerBtn">Démarrer</button><button class="btn secondary" onclick="timerAdjust(30)">+30s</button></div></div>
+<div class="card"><div class="row between"><div><b>Conseil progression</b><div class="muted small" id="progressionHint">Garde 2–3 répétitions en réserve.</div></div></div></div>
+</section>
+
+<section id="progressView" class="hidden">
+<div class="section-title">Objectifs principaux</div><div id="progressCards"></div>
+<div class="section-title">Records estimés</div><div class="card" id="prCard"></div>
+<div class="section-title">Historique récent</div><div class="card" id="historyList"></div>
+</section>
+
+<section id="programView" class="hidden">
+<div class="section-title">Programme</div><div id="programCards"></div>
+</section>
+
+<section id="settingsView" class="hidden">
+<div class="card"><div class="section-title" style="margin-top:0">Profil</div><label>Poids de corps (kg)</label><input id="bodyWeightInput" type="number" step="0.1"><div style="height:10px"></div><button class="btn primary" onclick="saveSettings()">Enregistrer</button></div>
+<div class="card"><div class="section-title" style="margin-top:0">Données</div><button class="btn secondary" onclick="exportData()">Exporter ma sauvegarde</button><div style="height:8px"></div><label>Importer une sauvegarde JSON</label><input type="file" id="importFile" accept="application/json" onchange="importData(event)"><div style="height:8px"></div><button class="btn danger" onclick="resetData()">Réinitialiser l’application</button></div>
+<div class="card"><b>Installation sur iPhone</b><p class="muted small">Ouvre cette page dans Safari, touche Partager, puis « Sur l’écran d’accueil ». Les données sont stockées localement sur ton téléphone.</p></div>
+</section>
+</div>
+<nav><div class="navin"><button class="navbtn active" onclick="showView('home',this)"><b>⌂</b>Accueil</button><button class="navbtn" onclick="showView('progress',this)"><b>↗</b>Progression</button><button class="navbtn" onclick="showView('program',this)"><b>≡</b>Programme</button><button class="navbtn" onclick="showView('settings',this)"><b>⚙︎</b>Réglages</button></div></nav>
+<div class="toast" id="toast"></div>
+<script>
+const defaultState={bodyWeight:68,nextSession:'A',history:[],prs:{bench:88.7,squat:88.7,deadlift:88.7},loads:{
+'A':{'Squat':62.5,'Développé couché':62.5,'Soulevé de terre roumain':50,'Rowing':0},
+'B':{'Soulevé de terre':65,'Bench pause 1 sec':57.5,'Squat pause':55,'Tirage vertical':0},
+'C':{'Squat lourd':70,'Squat léger':60,'Bench lourd':70,'Bench léger':60,'Deadlift lourd':70,'Deadlift léger':60}}};
+const sessions={A:{name:'Séance A',desc:'Squat + Bench',ex:[['Squat',4,5,180],['Développé couché',4,5,180],['Soulevé de terre roumain',3,8,120],['Rowing',3,10,90]]},B:{name:'Séance B',desc:'Deadlift + Technique',ex:[['Soulevé de terre',3,5,210],['Bench pause 1 sec',4,5,150],['Squat pause',3,5,150],['Tirage vertical',3,10,90]]},C:{name:'Séance C',desc:'Force',ex:[['Squat lourd',1,3,240],['Squat léger',3,5,180],['Bench lourd',1,3,240],['Bench léger',3,5,180],['Deadlift lourd',1,3,240],['Deadlift léger',2,5,180]]}};
+let state=JSON.parse(localStorage.getItem('powerliftState')||'null')||structuredClone(defaultState);let currentSession=null,currentEx=0,setDone=[],timerSec=180,timerInt=null;
+function save(){localStorage.setItem('powerliftState',JSON.stringify(state));renderHome();renderProgress();renderProgram();
+if('serviceWorker' in navigator){window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js').catch(()=>{}));}}
+function toast(t){let e=document.getElementById('toast');e.textContent=t;e.style.display='block';setTimeout(()=>e.style.display='none',1800)}
+function showView(v,btn){['home','workout','progress','program','settings'].forEach(x=>document.getElementById(x+'View').classList.add('hidden'));document.getElementById(v+'View').classList.remove('hidden');document.querySelectorAll('.navbtn').forEach(b=>b.classList.remove('active'));if(btn)btn.classList.add('active');if(v==='settings')document.getElementById('bodyWeightInput').value=state.bodyWeight}
+function renderHome(){document.getElementById('weightPill').textContent=state.bodyWeight+' kg';let s=sessions[state.nextSession];document.getElementById('nextSessionName').textContent=s.name;document.getElementById('nextSessionDesc').textContent=s.desc;let g=document.getElementById('goals');g.innerHTML='';[['bench','Bench',100],['squat','Squat',150],['deadlift','Deadlift',200]].forEach(([k,n,o])=>{let p=Math.min(100,state.prs[k]/o*100);g.innerHTML+=`<div class="card"><div class="row between"><b>${n}</b><span>${state.prs[k].toFixed(1)} / ${o} kg</span></div><div style="height:8px"></div><div class="progressbar"><div style="width:${p}%"></div></div></div>`});let l=state.history[state.history.length-1];document.getElementById('lastSessionCard').innerHTML=l?`<div class="row between"><b>${l.session}</b><span class="muted">${new Date(l.date).toLocaleDateString('fr-FR')}</span></div><div class="small muted" style="margin-top:6px">${l.exercises.length} exercices · ${l.exercises.map(e=>e.name+' '+e.weight+'kg').join(' · ')}</div>`:'<div class="muted">Aucune séance enregistrée.</div>'}
+function startSession(){currentSession=state.nextSession;currentEx=0;showView('workout');loadExercise()}
+function loadExercise(){let ex=sessions[currentSession].ex[currentEx], [name,sets,reps,rest]=ex;document.getElementById('sessionTag').textContent=sessions[currentSession].name;document.getElementById('exerciseName').textContent=name;document.getElementById('exerciseScheme').textContent=`${sets} × ${reps} · repos ${formatTime(rest)}`;document.getElementById('exerciseCount').textContent=`${currentEx+1}/${sessions[currentSession].ex.length}`;document.getElementById('workWeight').value=state.loads[currentSession][name]||'';document.getElementById('bestReps').value=reps;document.getElementById('rpeSelect').value='';setDone=Array(sets).fill(false);renderSets(reps);timerSec=rest;stopTimer();updateTimer();document.getElementById('progressionHint').textContent='Garde 2–3 répétitions en réserve sur les séries de travail.'}
+function renderSets(reps){let c=document.getElementById('setsContainer');c.innerHTML='';setDone.forEach((d,i)=>{c.innerHTML+=`<button class="setbtn ${d?'done':''}" onclick="toggleSet(${i})">S${i+1}<span>${d?'✓':reps+' reps'}</span></button>`})}
+function toggleSet(i){setDone[i]=!setDone[i];renderSets(sessions[currentSession].ex[currentEx][2]);if(setDone[i]){timerSec=sessions[currentSession].ex[currentEx][3];startTimer()}}
+function progressionDelta(name,rpe){rpe=+rpe;if(!rpe)return 0;let dead=name.toLowerCase().includes('deadlift')||name==='Soulevé de terre';let bench=name.toLowerCase().includes('bench')||name==='Développé couché';if(rpe>=10)return -5;if(rpe>=9)return 0;if(rpe<=6)return dead?5:(bench?2.5:5);if(rpe<=8)return dead?2.5:(bench?1.25:2.5);return 0}
+function completeExercise(){let ex=sessions[currentSession].ex[currentEx],name=ex[0],w=+document.getElementById('workWeight').value||0,rpe=document.getElementById('rpeSelect').value,reps=+document.getElementById('bestReps').value||ex[2];if(!setDone.every(Boolean)){if(!confirm('Toutes les séries ne sont pas cochées. Valider quand même ?'))return}let delta=progressionDelta(name,rpe);let next=Math.max(0,Math.round((w+delta)*4)/4);state.loads[currentSession][name]=next;if(!window.sessionLog)window.sessionLog=[];window.sessionLog.push({name,weight:w,rpe:+rpe||null,reps,est1rm:w? +(w*(1+reps/30)).toFixed(1):null,next});updatePR(name,w,reps);if(currentEx<sessions[currentSession].ex.length-1){currentEx++;loadExercise();toast(`Prochaine charge ${name}: ${next} kg`)}else{finishSession()}}
+function updatePR(name,w,reps){let est=w*(1+reps/30);let n=name.toLowerCase();if(n.includes('bench')||n.includes('développé couché'))state.prs.bench=Math.max(state.prs.bench,est);if(n.includes('squat'))state.prs.squat=Math.max(state.prs.squat,est);if(n.includes('deadlift')||n.includes('soulevé de terre'))state.prs.deadlift=Math.max(state.prs.deadlift,est)}
+function finishSession(){state.history.push({date:new Date().toISOString(),session:sessions[currentSession].name,key:currentSession,exercises:window.sessionLog||[]});window.sessionLog=[];state.nextSession=currentSession==='A'?'B':currentSession==='B'?'C':'A';save();showView('home',document.querySelector('.navbtn'));toast('Séance enregistrée ✓')}
+function formatTime(s){return String(Math.floor(s/60)).padStart(2,'0')+':'+String(s%60).padStart(2,'0')}
+function updateTimer(){document.getElementById('timerDisplay').textContent=formatTime(timerSec)} function startTimer(){stopTimer();document.getElementById('timerBtn').textContent='Pause';timerInt=setInterval(()=>{timerSec=Math.max(0,timerSec-1);updateTimer();if(timerSec===0){stopTimer();navigator.vibrate&&navigator.vibrate([200,100,200]);toast('Repos terminé')}} ,1000)} function stopTimer(){if(timerInt){clearInterval(timerInt);timerInt=null}document.getElementById('timerBtn').textContent='Démarrer'} function toggleTimer(){timerInt?stopTimer():startTimer()} function timerAdjust(v){timerSec=Math.max(0,timerSec+v);updateTimer()}
+function renderProgress(){let pc=document.getElementById('progressCards');pc.innerHTML='';[['Bench','bench',100],['Squat','squat',150],['Deadlift','deadlift',200]].forEach(([n,k,o])=>pc.innerHTML+=`<div class="card"><div class="row between"><div><b>${n}</b><div class="muted small">Objectif ${o} kg</div></div><div class="big">${state.prs[k].toFixed(0)}</div></div></div>`);document.getElementById('prCard').innerHTML=`<div class="grid3"><div><div class="muted small">Bench</div><b>${state.prs.bench.toFixed(1)}</b></div><div><div class="muted small">Squat</div><b>${state.prs.squat.toFixed(1)}</b></div><div><div class="muted small">Deadlift</div><b>${state.prs.deadlift.toFixed(1)}</b></div></div>`;let h=document.getElementById('historyList');let arr=[...state.history].reverse().slice(0,12);h.innerHTML=arr.length?arr.map(x=>`<div class="history-item"><div class="row between"><b>${x.session}</b><span class="muted small">${new Date(x.date).toLocaleDateString('fr-FR')}</span></div><div class="small muted" style="margin-top:4px">${x.exercises.map(e=>`${e.name}: ${e.weight} kg @RPE${e.rpe??'-'}`).join('<br>')}</div></div>`).join(''):'<div class="muted">Pas encore d’historique.</div>'}
+function renderProgram(){let c=document.getElementById('programCards');c.innerHTML='';Object.entries(sessions).forEach(([k,s])=>{c.innerHTML+=`<div class="card"><div class="row between"><div><b>${s.name}</b><div class="muted small">${s.desc}</div></div><span class="tag">${k}</span></div><div style="height:8px"></div>${s.ex.map(e=>`<div class="row between" style="padding:9px 0;border-top:1px solid #223047"><div><b>${e[0]}</b><div class="muted small">${e[1]} × ${e[2]}</div></div><div style="text-align:right"><b>${state.loads[k][e[0]]||'—'} kg</b><div class="muted small">repos ${formatTime(e[3])}</div></div></div>`).join('')}</div>`})}
+function saveSettings(){state.bodyWeight=+document.getElementById('bodyWeightInput').value||68;save();toast('Réglages enregistrés')}
+function exportData(){let blob=new Blob([JSON.stringify(state,null,2)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='powerlift-backup.json';a.click();URL.revokeObjectURL(a.href)}
+function importData(ev){let f=ev.target.files[0];if(!f)return;let r=new FileReader();r.onload=()=>{try{state=JSON.parse(r.result);save();toast('Sauvegarde importée')}catch(e){alert('Fichier invalide')}};r.readAsText(f)}
+function resetData(){if(confirm('Effacer toutes les données et repartir de zéro ?')){state=structuredClone(defaultState);save();toast('Application réinitialisée')}}
+renderHome();renderProgress();renderProgram();
+if('serviceWorker' in navigator){window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js').catch(()=>{}));}
+</script>
+</body>
+</html>
